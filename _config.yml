@@ -1,53 +1,22 @@
-# Build settings
-permalink   : /blog/:year/:title/
-markdown    : kramdown
-highlighter : pygments
+# Permalinks
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+permalink:           pretty
+relative_permalinks: true
 
-paginate: 10
-paginate_path: "/blog/page/:num/"
-comments: true
+# Setup
+title:               Lanyon
+tagline:             'A Jekyll theme'
+description:         'A reserved <a href="http://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.'
+url:                 http://lanyon.getpoole.com
+baseurl:             ''
+paginate:            5
 
-source: source
-destination: _site
-sass:
-  sass_dir: _scss
-  style: compressed # expanded
-
-# SEO settings
-title: blackiedm
-description: "a man"
-keywords: "love, dev, android"
-url: http://blackiedm.github.io/
-baseurl: ""
-# baseurl: ""
-
-# google_analytics: UA-52446115-1
-# repo: http://github.com/nandomoreirame/end2end
-# disqus_shortname: "fernandomoreira"
-# disqus_site_shortname: "fernandomoreira"
-
-# Author settings
+# About/contact
 author:
-  name      : blackiedm
-  job       : Android Dev Engineer
-  bio       : "Just do it"
-  thumb     : /images/author.jpg
-  email     : yangqili89@gmail.com
-  url       : http://blackiedm.github.io/
-  github    : http://github.com/blackiedm
-  # twitter   : http://twitter.com/nandomoreirame
-  # facebook  : http://facebook.com/fernando.dev
-  # linkedin  : http://linkedin.com/in/nandomoreirame
+  name:              Mark Otto
+  url:               https://twitter.com/mdo
+  email:             markdotto@gmail.com
 
-# navbar pages
-navbar:
-  - slug: about
-    title: 关于
-  # - slug: resume
-  #   title: Resume
-  # - slug: skills
-  #   title: Skills
-  - slug: blog
-    title: 文章
-
-exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md"]
+# Custom vars
+version:             1.0.0
