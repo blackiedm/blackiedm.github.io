@@ -6,8 +6,8 @@
 </description>
     <link>http://blackiedm.github.io//</link>
     <atom:link href="http://blackiedm.github.io//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 18 Feb 2016 14:35:47 +0800</pubDate>
-    <lastBuildDate>Thu, 18 Feb 2016 14:35:47 +0800</lastBuildDate>
+    <pubDate>Thu, 18 Feb 2016 14:46:17 +0800</pubDate>
+    <lastBuildDate>Thu, 18 Feb 2016 14:46:17 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -65,8 +65,8 @@
 &lt;p&gt;知道了问题所在,那就赶紧解决它吧.&lt;/p&gt;
 </description>
         <pubDate>Thu, 18 Feb 2016 19:29:25 +0800</pubDate>
-        <link>http://blackiedm.github.io//android/2016/02/18/memory_leak.html</link>
-        <guid isPermaLink="true">http://blackiedm.github.io//android/2016/02/18/memory_leak.html</guid>
+        <link>http://blackiedm.github.io//android/2016/02/18/memory-leak.html</link>
+        <guid isPermaLink="true">http://blackiedm.github.io//android/2016/02/18/memory-leak.html</guid>
         
         
         <category>android</category>
