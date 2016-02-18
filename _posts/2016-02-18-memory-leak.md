@@ -4,7 +4,6 @@ title:  "内存泄漏－实践篇"
 date:   2016-02-18 11:29:25
 categories: android
 tags: android
-image: /assets/images/cA4aKEIPQrerBnp1yGHv_IMG_9534-3-2.jpg
 ---
 
 知识点
