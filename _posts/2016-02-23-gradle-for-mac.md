@@ -3,7 +3,7 @@ layout: post
 title:  "gradle for mac"
 date:   2016-02-23 19:47:25
 categories: gradle
-tags: settings
+tags: android
 ---
 
 配置流程
