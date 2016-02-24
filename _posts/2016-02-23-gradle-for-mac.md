@@ -2,8 +2,8 @@
 layout: post
 title:  "gradle for mac"
 date:   2016-02-23 19:47:25
-categories: android
-tags: android
+categories: gradle
+tags: gradle
 ---
 
 配置流程
