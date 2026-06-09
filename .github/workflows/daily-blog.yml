@@ -1,0 +1,46 @@
+name: Daily AI Blog Post
+
+on:
+  schedule:
+    # 每天 UTC 01:00（北京时间 09:00）
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: '仅预览，不提交推送'
+        required: false
+        default: 'false'
+
+jobs:
+  write-post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Write today's blog post
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            按照 CLAUDE.md 中的轮转计划，写今天的 AI 博客文章。严格执行以下步骤：
+
+            1. 读取 CLAUDE.md，找到"下一篇栏目编号"和"下一篇发布日期"
+            2. 根据栏目编号，用 deep-research skill 搜索该栏目方向的最新 AI 动态（今天或近7天内的内容优先）
+            3. 按照 CLAUDE.md 中的"文章格式规范"，撰写一篇中英双语文章：
+               - 文件命名：_posts/YYYY-MM-DD-<column-slug>-<keywords>.md
+               - 包含完整 Jekyll front matter（layout, title, date, categories, tags, series, column）
+               - 字数符合该栏目的字数参考
+               - 中文正文为主，关键术语保留英文，每节末尾附英文小结（斜体）
+            4. 将文章保存到 _posts/ 目录
+            5. git add _posts/ CLAUDE.md
+            6. git commit -m "【栏目名】文章标题（简短）"
+            7. git push origin main
+            8. 更新 CLAUDE.md 的"轮转状态"区块：上一篇编号=刚写的编号，日期=今天，下一篇编号=（刚写编号 % 7）+1，下一篇日期=明天
+
+            注意：dry_run=${{ github.event.inputs.dry_run }}，若为 true 则跳过 git push 和 CLAUDE.md 更新。
