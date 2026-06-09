@@ -10,59 +10,84 @@
 
 $rs: 16px
 
-$font-serif: Linux Libertine
-$font-sans: Open Sans, MundoSans, "Helvetica Neue", Arial, Helvetica, sans-serif
+// Google color palette
+$google-blue: #4285F4
+$google-red: #EA4335
+$google-yellow: #FBBC04
+$google-green: #34A853
+
+// Surfaces
+$bg: #FAFAFA
+$surface: #FFFFFF
+$dark-bg: #0D1117
+$dark-surface: #161B22
+
+// Text
+$text-primary: #202124
+$text-secondary: #5F6368
+$text-muted: #9AA0A6
+
+// Borders
+$border: #E8EAED
+$border-dark: #30363D
+
+// Typography
+$font-mono: 'Roboto Mono', 'Fira Code', 'Courier New', monospace
+$font-sans: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif
 
 
 @mixin respond-to($breakpoint)
   @media only screen and (max-width: $breakpoint + px)
     @content
 
-// Only needed for syntax highlighting
 %vertical-rhythm
   margin-bottom: $rs
 
 main
   display: block
 
-
-
 body
   font-family: $font-sans
   margin: 0
   padding: 0
+  background-color: $bg
+  color: $text-primary
   text-rendering: optimizeLegibility
   -webkit-font-smoothing: antialiased
-  -moz-font-feature-settings: "liga=1, dlig=1"
-  -ms-font-feature-settings: "liga", "dlig"
-  -webkit-font-feature-settings: "liga", "dlig"
-  -o-font-feature-settings: "liga", "dlig"
-  font-feature-settings: "liga", "dlig"
 
+// Fixed top-left terminal-style logo
 .logo-readium
   position: fixed
-  left: 10px
-  top: 10px
-  width: $rs*3
-  height: $rs*3
-  background-color: #ffffffff
+  left: 12px
+  top: 12px
+  width: 44px
+  height: 44px
+  background-color: $dark-bg
+  border: 2px solid $google-green
   overflow: hidden
   z-index: 99
+  border-radius: 6px
+  transition: border-color 0.25s ease, box-shadow 0.25s ease
+  &:hover
+    border-color: $google-blue
+    box-shadow: 0 0 12px rgba(66,133,244,0.4)
   .logo
     display: block
     position: absolute
-    top: $rs/2
-    left: $rs/2
-    width: $rs*2
-    height: $rs*2
+    top: 6px
+    left: 6px
+    width: 28px
+    height: 28px
     background-size: cover
     background-repeat: no-repeat
+    border-radius: 3px
 
+// Hero teaser — dark terminal look with gradient overlay
 .teaserimage
-  height: 450px
+  height: 380px
   position: relative
   overflow: hidden
-  background-color: #000
+  background-color: $dark-bg
   .teaserimage-image
     background-size: cover
     background-position: center
@@ -73,132 +98,215 @@ body
     bottom: 0
     z-index: 1
     text-indent: -9999px
+    opacity: 0.35
+  &::after
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 2
+    background: linear-gradient(135deg, rgba(66,133,244,0.12) 0%, rgba(52,168,83,0.08) 60%, rgba(234,67,53,0.08) 100%)
+    pointer-events: none
 
+// Blog header card
 .blog-header
   width: 100%
-  max-width: 640px
+  max-width: 660px
   margin: 0 auto
   position: relative
-  padding: 0
+  padding: 0 $rs*2
   @include box-sizing(border-box)
   @include respond-to(800)
     padding: 0 $rs
   .blog-logo
-    width: $rs*7.5
-    height: $rs*7.5
+    width: $rs*5.5
+    height: $rs*5.5
     position: absolute
-    top: -$rs*3.75
+    top: -$rs*2.75
     right: 50%
-    margin-right: -$rs*3.75
+    margin-right: -$rs*2.75
     background-size: cover
-    border-radius: 50%
+    border-radius: 8px
     z-index: 99
     text-indent: -9999px
-    border: 3px solid #fff
-    background-color: #fff
-    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.3)
-    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.3)
-    box-shadow: 0 1px 1px rgba(0,0,0,0.3)
+    border: 3px solid $google-blue
+    background-color: $dark-bg
+    box-shadow: 0 4px 16px rgba(66,133,244,0.35)
+    transition: transform 0.25s ease, box-shadow 0.25s ease
+    &:hover
+      transform: translateY(-3px)
+      box-shadow: 0 8px 24px rgba(66,133,244,0.45)
   .blog-title
     margin: 0
-    padding: $rs*5.25 $rs $rs/2
-    font-size: 50px
+    padding: $rs*4.5 $rs $rs/2
+    font-family: $font-mono
+    font-size: 44px
     text-align: center
     font-weight: 700
-    letter-spacing: -2px
+    letter-spacing: -1px
     outline: 0
-    line-height: 50px
+    line-height: 1.15
     word-break: break-word
-    color: #333
+    color: $text-primary
+    &::before
+      content: '> '
+      color: $google-green
+      font-weight: 400
+    &::after
+      content: '_'
+      color: $google-blue
+      animation: cursor-blink 1.1s step-end infinite
   .blog-description
-    margin: 0 0 20px
-    padding: 0 $rs*2
-    font-size: $rs/8*9
-    line-height: 1.5
-    color: #666
+    margin: 0 0 14px
+    padding: 8px $rs*2
+    font-family: $font-mono
+    font-size: 13px
+    line-height: 1.7
+    color: $text-secondary
     text-align: center
     font-weight: 400
+    background-color: rgba(66,133,244,0.05)
+    border-radius: 4px
+    &::before
+      content: '// '
+      color: $text-muted
   .custom-links
-    margin: 0 0 50px
+    margin: 0 0 44px
     text-align: center
-    color: #ccc
     a
       text-decoration: none
-      color: #999
+      color: $text-secondary
+      font-family: $font-mono
+      font-size: 12px
+      padding: 4px 12px
+      border-radius: 20px
+      border: 1px solid $border
+      margin: 0 4px
+      display: inline-block
+      transition: all 0.2s ease
       &:hover
-        color: #333
+        border-color: $google-blue
+        color: $google-blue
+        background-color: rgba(66,133,244,0.07)
 
+@keyframes cursor-blink
+  0%, 100%
+    opacity: 1
+  50%
+    opacity: 0
+
+// Post list
 .content
   width: 100%
-  max-width: 640px
+  max-width: 660px
   margin: 0 auto
   @include box-sizing(border-box)
+  padding: 0 $rs*2
   @include respond-to(800)
-    padding: 0 $rs*2
+    padding: 0 $rs
   article
-    padding: 40px 0
-    border-bottom: 1px solid #f2f2f0
+    padding: 28px 0
+    border-bottom: 1px solid $border
     &:last-child
-      border-bottom: 0px
+      border-bottom: 0
+    // Cycle Google accent colors on left border
+    &:nth-child(4n+1) .article-item
+      border-left-color: $google-blue
+    &:nth-child(4n+2) .article-item
+      border-left-color: $google-red
+    &:nth-child(4n+3) .article-item
+      border-left-color: $google-yellow
+    &:nth-child(4n+4) .article-item
+      border-left-color: $google-green
+    .article-item
+      padding-left: 16px
+      border-left: 3px solid $google-blue
     .post-title
-      letter-spacing: -0.02em
-      font-weight: 700
+      letter-spacing: -0.01em
+      font-weight: 600
       font-style: normal
       display: block
-      font-size: 28px
-      line-height: 1.1
-      margin: 0 0
-      a
-        text-decoration: none
-        color: #333332
-        &:hover
-          text-decoration: none
-    .post-excerpt
-      letter-spacing: -0.02em
-      font-weight: 300
-      font-style: normal
-      font-size: 20px
+      font-size: 22px
       line-height: 1.3
-      color: #666665
-    .post-meta
-      font-size: 14px
-      color: #b3b3b1
-      line-height: 30px
+      margin: 0 0 8px
       a
-        color: #b3b3b1
+        text-decoration: none
+        color: $text-primary
+        transition: color 0.2s ease
+        &:hover
+          color: $google-blue
+    .post-excerpt
+      font-weight: 400
+      font-style: normal
+      font-size: 15px
+      line-height: 1.65
+      color: $text-secondary
+      margin-bottom: 8px
+    .post-meta
+      font-family: $font-mono
+      font-size: 12px
+      color: $text-muted
+      line-height: 24px
+      a
+        color: $text-muted
         text-decoration: none
         &:hover
-          text-decoration: underline
+          color: $google-blue
+
 .container.featured
-  padding-bottom: 40px
+  padding-bottom: 32px
 
 .post-template .content
-  max-width: 700px
+  max-width: 720px
 
+// Section headlines — code comment style
 .index-headline
-  border-top: 1px solid #dededc
-  margin: 0
-  padding: 16px 0
+  border-top: none
+  margin: 24px 0 0
+  padding: 12px 0
   span
-    color: #b3b3b1
-    font-size: $rs/8*5
+    font-family: $font-mono
+    color: $text-muted
+    font-size: 11px
     text-transform: uppercase
-    letter-spacing: 1px
+    letter-spacing: 2px
+    &::before
+      content: '/* '
+      color: $google-green
+      font-style: normal
+    &::after
+      content: ' */'
+      color: $google-green
+      font-style: normal
 
 .archive-template
   .index-headline.featured
     display: none
 
+// Pagination — outlined Google-style buttons
 .pagination
   text-align: center
-  padding: $rs*3 0 0
-  font-size: $rs/4*3
+  padding: $rs*3 0 $rs*2
+  font-family: $font-mono
+  font-size: 13px
   a
-    color: #999
+    color: $google-blue
     text-decoration: none
+    padding: 6px 18px
+    border: 1px solid $google-blue
+    border-radius: 4px
+    margin: 0 4px
+    transition: all 0.2s ease
     &:hover
-      color: #333
+      background-color: $google-blue
+      color: #fff
+  .page-number
+    color: $text-muted
+    padding: 0 12px
 
+// Reading time
 .post-reading
   position: absolute
   top: 10px
@@ -206,35 +314,39 @@ body
   line-height: 44px
   display: inline-block
   white-space: nowrap
-  color: rgba(0,0,0,0.25)
-  font-size: 14px
-  letter-spacing: -0.02em
+  color: $text-muted
+  font-family: $font-mono
+  font-size: 12px
+  letter-spacing: 0
   font-weight: 400
-  font-style: normal
-  font-family: $font-sans
   z-index: 999
 .tag-articleimage .post-reading
   color: rgba(255,255,255,0.9)
   text-shadow: 0px 1px 4px rgba(0,0,0,0.25), 0px 0px 1px rgba(0,0,0,0.5)
 
+// Footer
 .site-footer
   margin: 0 auto
   padding: $rs*3 0
   width: 100%
-  max-width: 640px
-  font-size: $rs/4*3
+  max-width: 660px
+  font-family: $font-mono
+  font-size: 12px
   text-align: center
-  color: #999
-  line-height: $rs*1.1
+  color: $text-muted
+  line-height: $rs*1.5
+  border-top: 1px solid $border
   a
-    color: #666
+    color: $google-blue
     text-decoration: none
     &:hover
-      color: #333
+      text-decoration: underline
+
+// Post article layout
 .post
   .article-image
     position: absolute
-    background-color: #000
+    background-color: $dark-bg
     top: 0
     left: 0
     right: 0
@@ -251,6 +363,7 @@ body
         text-indent: -9999px
         padding-top: 33%
         z-index: 1
+        opacity: 0.55
       .post-image-image2
         display: none
     @media(max-width: 700px)
@@ -266,6 +379,7 @@ body
         text-indent: -9999px
         padding-top: 33%
         z-index: 1
+        opacity: 0.55
     .post-meta
       position: absolute
       bottom: $rs*5
@@ -278,14 +392,15 @@ body
         left: $rs
         right: $rs
     .post-title
+      font-family: $font-mono
       font-weight: 700
       font-style: normal
-      letter-spacing: -0.04em
-      font-size: 50px
+      letter-spacing: -0.02em
+      font-size: 42px
       line-height: 1.1
       color: #fff
       margin-bottom: 16px
-      text-shadow: 0px 1px 16px rgba(0,0,0,0.5), 0px 0px 1px rgba(0,0,0,0.5)
+      text-shadow: 0px 2px 20px rgba(0,0,0,0.8), 0px 0px 1px rgba(0,0,0,0.5)
     .author-image
       display: inline-block
       width: 30px
@@ -295,29 +410,30 @@ body
       margin-bottom: -10px
       float: left
       background-size: cover
-      border-radius: 100%
+      border-radius: 4px
       text-indent: -9999px
     .author-name
       display: inline
     .post-meta-text
-      color: rgba(255,255,255,0.75)
-      letter-spacing: -0.02em
+      color: rgba(255,255,255,0.85)
+      letter-spacing: 0
       font-weight: 400
       font-style: normal
-      text-shadow: 0px 1px 4px rgba(0,0,0,0.25), 0px 0px 1px rgba(0,0,0,0.5)
-      font-size: 14px
+      font-family: $font-mono
+      font-size: 13px
       overflow: hidden
-      font-family: $font-sans
       white-space: nowrap
       text-overflow: ellipsis
       a
-        color: rgba(255,255,255,0.75)
+        color: rgba(255,255,255,0.85)
         &:hover
           color: rgba(255,255,255,1)
     .fa-angle-down
-      font-size: 32px
-      margin: 64px auto 0
+      font-size: 28px
+      margin: 52px auto 0
       color: rgba(255,255,255,0.75)
+      display: block
+      text-align: center
       &:hover
         color: #fff
     .topofpage
@@ -325,15 +441,28 @@ body
   .noarticleimage
     .post-meta
       font-family: $font-sans
-      padding-top: 60px
+      padding-top: 56px
+      max-width: 720px
+      margin: 0 auto
+      padding-left: $rs*2
+      padding-right: $rs*2
+      @include box-sizing(border-box)
+      @include respond-to(800)
+        padding-left: $rs
+        padding-right: $rs
     .post-title
+      font-family: $font-mono
       font-weight: 700
       font-style: normal
-      letter-spacing: -0.04em
-      font-size: 50px
-      line-height: 1.1
-      color: #333332
-      margin-bottom: 16px
+      letter-spacing: -0.02em
+      font-size: 40px
+      line-height: 1.2
+      color: $text-primary
+      margin-bottom: 12px
+      &::before
+        content: '# '
+        color: $google-blue
+        font-weight: 400
     .author-image
       display: inline-block
       width: 30px
@@ -343,120 +472,141 @@ body
       margin-bottom: -10px
       float: left
       background-size: cover
-      border-radius: 100%
+      border-radius: 4px
       text-indent: -9999px
     .author-name
       display: inline
     .post-meta-text
-      color: #b3b3b1
-      letter-spacing: -0.02em
+      color: $text-muted
+      letter-spacing: 0
       font-weight: 400
       font-style: normal
-      font-size: 14px
+      font-family: $font-mono
+      font-size: 13px
       overflow: hidden
-      font-family: $font-sans
       white-space: nowrap
       text-overflow: ellipsis
   .post-content
     width: 100%
-    font-family: $font-serif
-    color: #333
-    h1, h2, h3
-      font-family: $font-sans
-    h3, h4, h5, h6
-      letter-spacing: -0.02em
+    max-width: 720px
+    margin: 0 auto
+    padding: 0 $rs*2
+    @include box-sizing(border-box)
+    font-family: $font-sans
+    color: $text-primary
+    @include respond-to(800)
+      padding: 0 $rs
+    h1, h2, h3, h4, h5, h6
+      font-family: $font-mono
+    h1
+      font-size: 30px
+      line-height: 1.2
       font-weight: 700
-      font-style: normal
+      margin: 32px 0 12px
+      padding-bottom: 8px
+      border-bottom: 2px solid $google-blue
+      letter-spacing: -0.02em
+    h2
       font-size: 24px
       line-height: 1.3
-      margin: 0
-      font-family: $font-sans
-      margin-bottom: 4px
-    h2, h1
-      letter-spacing: -0.02em
       font-weight: 700
-      font-style: normal
-      font-size: 32px
-      line-height: 1.2
-      padding-top: 31px
-      margin-bottom: 4px
+      margin: 28px 0 10px
+      letter-spacing: -0.02em
+      color: $google-blue
+    h3, h4, h5, h6
+      font-size: 19px
+      line-height: 1.3
+      font-weight: 600
+      margin: 24px 0 8px
+      letter-spacing: -0.01em
+      color: $text-primary
     p
       font-weight: 400
       font-style: normal
-      font-size: 22px
-      line-height: 30px
+      font-size: 17px
+      line-height: 1.85
       margin: 0
-      padding-bottom: 30px
-      color: #333
-      -webkit-hyphens: auto
-      -moz-hyphens: auto
-      hyphens: auto
+      padding-bottom: 22px
+      color: $text-primary
     a
-      color: #333
-      text-decoration: underline
+      color: $google-blue
+      text-decoration: none
+      border-bottom: 1px solid rgba(66,133,244,0.3)
+      transition: border-color 0.2s ease
+      &:hover
+        border-bottom-color: $google-blue
     img
       max-width: 100%
       margin: 0 auto
+      display: block
+      border-radius: 4px
     figure
       margin: 0
-      padding: 0 0 30px
+      padding: 0 0 28px
     figcaption
+      font-family: $font-mono
       font-weight: 400
-      font-style: italic
-      font-size: 16px
-      line-height: 1.3
-      color: #666665
+      font-style: normal
+      font-size: 12px
+      line-height: 1.4
+      color: $text-muted
       outline: 0
       z-index: 300
       text-align: center
+      padding-top: 8px
     hr
       border: 0
       padding: 0
       display: block
-      width: 15%
-      margin: 30px auto
-      border: 0px solid #ddd
-      border-top: 1px solid #ddd
+      width: 60px
+      margin: 28px auto
+      border-top: 3px solid $google-blue
     blockquote
-      margin: 0 0 30px
-      margin-left: -26px
-      border-left: 3px solid #57ad68
-      padding-left: 20px
+      margin: 0 0 24px
+      border-left: 4px solid $google-blue
+      padding: 14px 20px
+      background-color: rgba(66,133,244,0.05)
+      border-radius: 0 4px 4px 0
       p
-        letter-spacing: 0.01rem
-        font-weight: 400
+        color: $text-secondary
         font-style: italic
-        mborder-left: 3px solid #57ad68
-        mpadding-left: 20px
-        mmargin-left: -26px
-        padding-bottom: 3px
+        padding-bottom: 0
+        font-size: 16px
+        line-height: 1.7
     ul, ol
-      padding: 0 0 30px
+      padding: 0 0 24px
       margin: 0
     li
       padding: 0
       font-weight: 400
       font-style: normal
-      font-size: 23px
-      line-height: 30px
-      margin-left: 30px
-      margin-bottom: 12px
+      font-size: 17px
+      line-height: 1.75
+      margin-left: 24px
+      margin-bottom: 8px
       padding-top: 2px
       p
-        padding: 0 0 golden-ratio(1rem,  1)
+        padding: 0 0 8px
     ol li
       list-style-type: decimal
   .bottom-teaser
-    padding: 50px 0
+    padding: 40px 0
     font-family: $font-sans
+    max-width: 720px
+    margin: 0 auto
+    padding-left: $rs*2
+    padding-right: $rs*2
+    @include box-sizing(border-box)
+    @include respond-to(800)
+      padding-left: $rs
+      padding-right: $rs
     hr
       border: 0
       padding: 0
       display: block
-      width: 15%
-      margin: 16px 0 16px 100px
-      border: 0px solid #ddd
-      border-top: 1px solid #ddd
+      width: 40px
+      margin: 16px 0
+      border-top: 2px solid $google-blue
     .isLeft
       float: left
       width: 47%
@@ -465,37 +615,41 @@ body
         width: 100%
         padding-bottom: $rs*2
       .index-headline
-        padding-bottom: 32px
+        padding-bottom: 24px
       a
-        color: #000
+        color: $text-primary
         text-decoration: none
         &:hover
-          color: #333
-          text-decoration: underline
+          color: $google-blue
       .author-image
         display: block
-        width: 80px
-        height: 80px
+        width: 64px
+        height: 64px
         float: left
         background-size: cover
-        border-radius: 100%
+        border-radius: 8px
         text-indent: -9999px
+        border: 2px solid $google-blue
       h4
-        font-size: 18px
-        line-height: 1.1
+        font-family: $font-mono
+        font-size: 16px
+        line-height: 1.2
         font-weight: 700
         padding: 0
         margin: 0
-        padding-left: 100px
+        padding-left: 80px
+        color: $text-primary
       p
-        font-size: 14px
-        line-height: 1.3
+        font-size: 13px
+        line-height: 1.4
         font-weight: 400
         padding: 0
         margin: 0
-        padding-left: 100px
+        padding-left: 80px
+        color: $text-secondary
         &.published
-          color: #999
+          font-family: $font-mono
+          color: $text-muted
     .isRight
       float: right
       width: 47%
@@ -503,41 +657,51 @@ body
       @include respond-to(800)
         width: 100%
       .index-headline
-        padding-bottom: 32px
+        padding-bottom: 24px
       .site-footer
         margin: 0
         padding: 0
-        color: #333
         text-align: left
-        font-size: 14px
-        line-height: 1.3
-        color: #999
+        border-top: none
+        font-size: 13px
+        font-family: $font-mono
+        color: $text-muted
         a
-          color: #333
+          color: $google-blue
           text-decoration: none
           &:hover
             text-decoration: underline
         .poweredby
           display: block
-          padding-bottom: 18px
+          padding-bottom: 12px
           font-weight: 700
-          color: #333
+          color: $text-secondary
+
 .share
   text-align: right
-  padding: 20px 0 0
+  padding: 16px 0 0
+  max-width: 720px
+  margin: 0 auto
+  padding-left: $rs*2
+  padding-right: $rs*2
+  @include box-sizing(border-box)
   a
     text-decoration: none
-    color: #bbb
+    color: $text-muted
     padding-left: 12px
+    font-size: 18px
+    transition: color 0.2s ease
     .hidden
       display: none
     &:hover
-      color: #333
+      color: $google-blue
 
+// Post closer with dark overlay
 .bottom-closer
   width: 100%
   position: relative
   overflow: hidden
+  margin-top: 40px
   .background-closer-image
     position: absolute
     top: 0
@@ -548,74 +712,101 @@ body
     background-size: cover
     background-repeat: no-repeat
     background-position: center
+    opacity: 0.3
+    filter: brightness(0.4)
   .inner
     width: 100%
     position: relative
     z-index: 99
-    max-width: 640px
-    padding: 120px 0 90px
+    max-width: 660px
+    padding: 80px $rs*2
     text-align: center
     margin: 0 auto
+    background: linear-gradient(180deg, rgba(13,17,23,0.7), rgba(13,17,23,0.95))
     .blog-title
       margin: 0
       padding: 0 0 10px
-      font-size: 50px
+      font-family: $font-mono
+      font-size: 36px
       text-align: center
       font-weight: 700
-      letter-spacing: -2px
+      letter-spacing: -1px
       outline: 0
-      line-height: 50px
+      line-height: 1.2
       word-break: break-word
       color: #fff
-      text-shadow: 0px 1px 16px rgba(0,0,0,0.5), 0px 0px 1px rgba(0,0,0,0.5)
+      &::before
+        content: '> '
+        color: $google-green
+        font-weight: 400
     .blog-description
-      margin: 0 0 50px
+      margin: 0 0 32px
       padding: 0 $rs*2
-      font-size: $rs/8*9
-      line-height: 1.5
-      color: #fff
+      font-family: $font-mono
+      font-size: 13px
+      line-height: 1.6
+      color: rgba(255,255,255,0.65)
       text-align: center
       font-weight: 400
-      text-shadow: 0px 1px 16px rgba(0,0,0,0.5), 0px 0px 1px rgba(0,0,0,0.5)
     .custom-links
-      margin: 0 0 50px
+      margin: 0 0 32px
     .btn
       display: inline-block
       text-align: center
-      letter-spacing: -0.02em
-      font-size: 15px
-      font-weight: 400
-      font-style: normal
+      font-family: $font-mono
+      font-size: 13px
+      font-weight: 500
+      letter-spacing: 0.5px
       text-decoration: none
       cursor: pointer
-      height: 44px
-      background: #57ad68
+      height: 40px
+      background: $google-blue
       color: #fff
       vertical-align: middle
       box-sizing: border-box
-      border-radius: 999em
-      line-height: 44px
-      padding: 0 18px
+      border-radius: 4px
+      line-height: 40px
+      padding: 0 24px
+      transition: background-color 0.2s ease, box-shadow 0.2s ease
+      &:hover
+        background: #3367D6
+        box-shadow: 0 4px 14px rgba(66,133,244,0.45)
 
 #disqus_thread
-  margin-top: 50px
+  margin-top: 40px
+  padding: 0 $rs*2
+  max-width: 720px
+  margin-left: auto
+  margin-right: auto
+  @include box-sizing(border-box)
+
 .post-tag-articleimage
   display: none
 
-pre,
+// Inline code
 code
-  font-size: 15px
-  border: 1px solid #e8e8e8
+  font-family: $font-mono
+  font-size: 13px
+  background-color: rgba(66,133,244,0.07)
+  border: 1px solid rgba(66,133,244,0.18)
   border-radius: 3px
-  background-color: #eef
+  color: $google-red
+  padding: 2px 6px
 
-code
-  padding: 1px 5px
-
+// Code blocks
 pre
-  padding: 8px 12px
-  overflow-x: scroll
+  font-family: $font-mono
+  font-size: 14px
+  background-color: $dark-bg
+  border: 1px solid $border-dark
+  border-radius: 6px
+  padding: 16px 20px
+  overflow-x: auto
+  margin-bottom: 24px
   > code
+    background: none
     border: 0
-    padding-right: 0
-    padding-left: 0
+    padding: 0
+    color: #E6EDF3
+    font-size: 14px
+    line-height: 1.65
