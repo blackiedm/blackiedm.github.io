@@ -40,7 +40,7 @@ jobs:
             4. 将文章保存到 _posts/ 目录
             5. git add _posts/ CLAUDE.md
             6. git commit -m "【栏目名】文章标题（简短）"
-            7. git push origin main
+            7. git push origin master
             8. 更新 CLAUDE.md 的"轮转状态"区块：上一篇编号=刚写的编号，日期=今天，下一篇编号=（刚写编号 % 7）+1，下一篇日期=明天
 
             注意：dry_run=${{ github.event.inputs.dry_run }}，若为 true 则跳过 git push 和 CLAUDE.md 更新。
