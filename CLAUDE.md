@@ -108,3 +108,43 @@ YYYY-MM-DD-column-slug-keywords.md
 4. 文件保存至 `_posts/YYYY-MM-DD-*.md`
 5. `git add` + `git commit` + `git push`
 6. **更新本文件 `## 轮转状态`**，计数器 +1
+
+## AI 资讯日报 Top10（独立每日栏目）
+
+> 这是与上面「7 栏目轮转」并行的**独立**每日栏目，**不参与** 1→7 轮转计数，互不影响。
+> 由 `.github/workflows/daily-ai-top10.yml` 在每天北京时间 07:00（UTC 23:00）自动发布。
+
+### 定位
+每天汇总过去 24 小时全球最重要的 10 条 AI 资讯，快速扫描式阅读，中英双语。
+
+### 文件命名
+`_posts/YYYY-MM-DD-ai-news-top10.md`
+
+### Front Matter
+
+```yaml
+---
+layout: post
+title: "AI 资讯日报 Top10 | Daily AI Top10 — YYYY年MM月DD日"
+date: YYYY-MM-DD 07:00:00
+categories: AI
+tags: AI news top10 daily 汇总
+---
+```
+
+### 文章结构
+- 开头一句英文摘要（斜体）+ 一句话当日总览（引用块）
+- `---` 分隔
+- 10 条资讯，每条：
+  - `### NN. 中文标题`
+  - 2-3 句中文要点（关键术语保留英文）
+  - 一句英文摘要（斜体）
+  - `来源：[标题](URL)`
+- 结尾「今日一句话 / One-liner」+ Sources 链接汇总
+
+### 内容来源覆盖
+模型发布、重大研究/论文、产品更新、融资并购、监管政策、开源工具、行业大事。按重要性排序取 Top10。
+
+### 质量要求
+- 每条来源链接必须真实可达，无法核实则剔除并补足下一条
+- 全文 1000-1500 字

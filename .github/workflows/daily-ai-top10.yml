@@ -1,0 +1,44 @@
+name: Daily AI News Top10
+
+on:
+  schedule:
+    # 每天 UTC 23:00（北京时间次日 07:00）—— 早间 AI 资讯日报
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: '仅预览，不提交推送'
+        required: false
+        default: 'false'
+
+jobs:
+  write-digest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Write today's AI news Top10 digest
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            你是 BlackieDM 博客的"AI 资讯日报"编辑。今天的任务：发布一篇当日 Top10 AI 资讯汇总。严格执行以下步骤：
+
+            1. 读取 CLAUDE.md 的"## AI 资讯日报 Top10"区块，了解格式规范。
+            2. 用 deep-research skill / WebSearch 搜索过去 24 小时（最多 48 小时内）全球最重要的 AI 动态，覆盖：模型发布、重大研究/论文、产品更新、融资并购、监管政策、开源工具、行业大事。
+            3. 按重要性排序，精选 Top10。每条包含：中文标题、2-3 句中文要点（关键术语保留英文）、一句英文摘要（斜体）、真实可达的来源链接。
+            4. 按 CLAUDE.md "## AI 资讯日报 Top10" 的规范撰写中英双语文章，文件命名：_posts/YYYY-MM-DD-ai-news-top10.md
+               - front matter 与现有 AI 文章一致（layout / title / date / categories / tags，tags 为空格分隔字符串，需含 news top10 daily）
+               - title 形如："AI 资讯日报 Top10 | Daily AI Top10 — YYYY年MM月DD日"
+            5. 校验每条来源链接是否真实可达；无法核实的条目剔除并补充下一条。
+            6. git add _posts/
+            7. git commit -m "AI 资讯日报 Top10 — YYYY-MM-DD"
+            8. git push origin master
+
+            注意：dry_run=${{ github.event.inputs.dry_run }}，若为 true 则跳过 git commit / git push，仅在日志中预览文章内容。
